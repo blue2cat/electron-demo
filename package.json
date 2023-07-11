@@ -95,12 +95,22 @@
     }
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@remirror/pm": "^2.0.6",
+    "@remirror/react": "^2.0.32",
+    "@remirror/react-editors": "^1.0.35",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2"
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.11.2",
+    "remirror": "^2.0.33",
+    "slate": "^0.94.1",
+    "slate-history": "^0.93.0",
+    "slate-react": "^0.97.1"
   },
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
@@ -170,8 +180,8 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "ElectronEditor",
+    "appId": "org.erb.ElectronEditor",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
