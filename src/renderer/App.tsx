@@ -1,6 +1,5 @@
 import './App.css';
 
-
 // Import React dependencies.
 import React, { useState } from 'react';
 

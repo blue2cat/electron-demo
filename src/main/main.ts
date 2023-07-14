@@ -1,17 +1,13 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import log from 'electron-log';
-import MenuBuilder from './menu';
+import { app, BrowserWindow, shell, ipcMain, Menu, MenuItem } from 'electron';
 import { resolveHtmlPath } from './util';
 
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
+  event.reply('ipc-example', );
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -53,12 +49,12 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
-    show: false,
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
-    autoHideMenuBar: true,
+    autoHideMenuBar: false,
     webPreferences: {
+      spellcheck: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
@@ -83,8 +79,24 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  mainWindow.webContents.on('context-menu', (event, params) => {
+    const menu = new Menu();
+
+    // Add each spelling suggestion
+    // eslint-disable-next-line no-restricted-syntax
+    for (const suggestion of params.dictionarySuggestions) {
+      const thisMenu = new MenuItem({
+        label: suggestion,
+          click: () => mainWindow.webContents.replaceMisspelling(suggestion),
+      });
+
+      menu.append(thisMenu);
+    }
+
+    if (params.misspelledWord) {
+      menu.popup();
+    }
+  });
 
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {
