@@ -1,7 +1,7 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, shell, Menu, MenuItem } from 'electron';
 import { resolveHtmlPath } from './util';
 
 let mainWindow: BrowserWindow | null = null;
@@ -48,7 +48,7 @@ const createWindow = async () => {
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
-    autoHideMenuBar: false,
+    autoHideMenuBar: true,
     webPreferences: {
       spellcheck: true,
       preload: app.isPackaged
@@ -75,6 +75,7 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
+  // spellchecking context menu
   mainWindow.webContents.on('context-menu', (event, params) => {
     const menu = new Menu();
 
@@ -83,7 +84,7 @@ const createWindow = async () => {
     for (const suggestion of params.dictionarySuggestions) {
       const thisMenu = new MenuItem({
         label: suggestion,
-          click: () => mainWindow.webContents.replaceMisspelling(suggestion),
+        click: () => mainWindow.webContents.replaceMisspelling(suggestion),
       });
 
       menu.append(thisMenu);
