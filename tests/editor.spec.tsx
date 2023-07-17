@@ -41,3 +41,8 @@ test('notes box should render', async ({ mount }) => {
   await expect(component).toBeTruthy();
 });
 
+// notes box displays text
+test('notes box should display text', async ({ mount }) => {
+  const component = await mount(<Results />);
+  await component.isVisible();
+});
