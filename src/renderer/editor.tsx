@@ -1,9 +1,6 @@
 // disable eslint for this file
 /* eslint-disable */
 // @ts-nocheck
-
-import React, { useEffect, useState } from 'react';
-
 function saveContent() {
   try {
     let content = document.getElementById('test').value;
@@ -22,9 +19,13 @@ function saveContent() {
 
 function Editor(props){
   return (
-    <div >
-      <textarea id={props.id} class="text-area"></textarea>
-    </div>
+      <textarea id={props.id} class="text-area-editor"></textarea>
+  );
+}
+
+function Results(props){
+  return (
+      <div id={props.id} class="text-area-results"></div>
   );
 }
 
@@ -32,10 +33,10 @@ function EditorSaveButton(){
 
   return (
     <div >
-      <button onClick={saveContent} className='save-button'>Save</button>
+      <button onClick={saveContent} class='save-button'>Save</button>
     </div>
   );
 }
 
 export default Editor;
-export { EditorSaveButton };
+export { EditorSaveButton, Editor, Results };
