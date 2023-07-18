@@ -32,3 +32,24 @@ test('launch app and test save', async () => {
   // close app
   await electronApp.close();
 });
+
+test('launch app and test spellchecking context menu', async () => {
+  const electronApp = await electron.launch({ args: ['./src/main/main.ts'] });
+
+  // create window
+  const window = await electronApp.firstWindow();
+
+  // load url
+  await window.goto('http://localhost:1212/');
+  await window.waitForLoadState('domcontentloaded');
+
+  import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.locator('#test').fill('tesrr');
+  await page.locator('#test').click({
+    button: 'right'
+  });
+
+});
+}
