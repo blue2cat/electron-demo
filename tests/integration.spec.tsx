@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { _electron as electron } from 'playwright';
 
+// make sure the app launches and saves content
 test('launch app and test save', async () => {
   const electronApp = await electron.launch({ args: ['./src/main/main.ts'] });
 
   // create window
   const window = await electronApp.firstWindow();
 
-  // load url
+  // load dev url
   await window.goto('http://localhost:1212/');
   await window.waitForLoadState('domcontentloaded');
 
@@ -34,6 +35,7 @@ test('launch app and test save', async () => {
 });
 
 test('launch app and test spellchecking context menu', async () => {
+  // launch app
   const electronApp = await electron.launch({ args: ['./src/main/main.ts'] });
 
   // create window
@@ -43,13 +45,9 @@ test('launch app and test spellchecking context menu', async () => {
   await window.goto('http://localhost:1212/');
   await window.waitForLoadState('domcontentloaded');
 
-  import { test, expect } from '@playwright/test';
-
-test('test', async ({ page }) => {
-  await page.locator('#test').fill('tesrr');
-  await page.locator('#test').click({
-    button: 'right'
+  // enter erroneous text
+  await window.locator('#test').fill('tesrr');
+  await window.locator('#test').click({
+    button: 'right',
   });
-
 });
-}
