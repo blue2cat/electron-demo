@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { _electron as electron } from 'playwright';
 
+test.use({ viewport: { width: 500, height: 500 } });
+
 // make sure the app launches and saves content
 test('launch app and test save', async () => {
   const electronApp = await electron.launch({ args: ['./src/main/main.ts'] });

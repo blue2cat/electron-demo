@@ -25,7 +25,7 @@ function Editor(props){
 
 function Results(props){
   return (
-      <div id={props.id} class="text-area-results"></div>
+    <textarea id={props.id} class="text-area-editor"></textarea>
   );
 }
 
