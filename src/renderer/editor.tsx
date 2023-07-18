@@ -10,8 +10,6 @@ function saveContent() {
     if (content != null){
       document.getElementById('result-body').innerHTML = content;
     }
-
-
   } catch (error) {
     console.log(error);
   }
@@ -30,7 +28,6 @@ function Results(props){
 }
 
 function EditorSaveButton(){
-
   return (
     <div >
       <button onClick={saveContent} class='save-button'>Save</button>
@@ -38,5 +35,4 @@ function EditorSaveButton(){
   );
 }
 
-export default Editor;
 export { EditorSaveButton, Editor, Results };
